@@ -12,3 +12,25 @@ I need this code, just don't know where, perhaps should make some middleware, do
 
 Go code!
 */
+
+const express = require('express');
+
+const server = express();
+
+const projectsRouter = require('./routers/projectsRouter.js');
+
+const actionsRouter = require('./routers/actionsRouter.js');
+
+const port = process.env.PORT || 4000;
+
+server.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
+server.use('/projects', projectsRouter)
+
+server.use('/actions', actionsRouter)
+
+server.listen(port, () => console.log(`\nlistening on ${port}\n`))
